@@ -103,7 +103,7 @@ class TranslationKeys{
 
 
   //company Flow
-  static const companyName = "What is your company name?";
+  static const whatsYourCompanyName = "What is your company name?";
   static const onboardingCompanySize = "What is your company size?";
   static const onboardingCompanyBenefits = "What benefits does your company\noffer?";
   static const onboardingJobLocationJobs = "Remote, in-office or both?";
@@ -219,6 +219,14 @@ class TranslationKeys{
   static const saveTo = "Save to" ;
   static const bookmarkDeleteTitle = "Are you sure you want to delete these items?" ;
   static const bookmarkDeleteMessage = "Once you delete it, you won’t be able see them in your saved items" ;
+
+  //Company
+  static const editCompanyName = "Edit Company Name" ;
+  static const companyName = "Company Name" ;
+  static const editCompanySize = "Company Size" ;
+  static const editCompanyBenefits = "Edit Company Benefits" ;
+  static const companyBenefits = "Company Benefits" ;
+  static const yourWebsite = "Your Website" ;
 
 
   // Upload Section //

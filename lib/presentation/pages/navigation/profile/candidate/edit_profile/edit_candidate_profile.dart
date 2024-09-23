@@ -6,12 +6,12 @@ import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/profile/candida
 import 'package:highlite_flutter_mvp/presentation/pages/navigation/profile/candidate/edit_profile/profile_editor_page.dart';
 import '../../../../../../data/models/apis/dashboard/cadidate/upload/employment/candidate_employment.dart';
 import '../../../../../../data/models/apis/dashboard/cadidate/upload/project/candidate_project.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_career_section.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_education_section.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_employment_section.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_personal_section.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_project_section.dart';
-import '../../../../../widgets/profile/edit_profile/sections/candidate_skills_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_career_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_education_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_employment_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_personal_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_project_section.dart';
+import '../../../../../widgets/profile/edit_profile/sections/candidate/candidate_skills_section.dart';
 
 class EditCandidateProfile extends StatelessWidget {
   const EditCandidateProfile({

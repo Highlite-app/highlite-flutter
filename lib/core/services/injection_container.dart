@@ -9,7 +9,6 @@ import 'package:highlite_flutter_mvp/core/services/navigation_service.dart';
 import 'package:highlite_flutter_mvp/data/datasources/local_datasource.dart';
 import 'package:highlite_flutter_mvp/data/datasources/remote_datasources.dart';
 import 'package:highlite_flutter_mvp/data/repositories/auth/auth_repository_impl.dart';
-import 'package:highlite_flutter_mvp/data/repositories/dashboard/candidate/home/candidate_following_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/candidate/home/job_post_video_feed_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/candidate/profile/candidate_profile_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/candidate/profile/candidate_video_feed_repository_impl.dart';
@@ -17,12 +16,12 @@ import 'package:highlite_flutter_mvp/data/repositories/dashboard/common/bookmark
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/common/feed_service/home_feed_state_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/common/feed_service/video_feed_integrated__repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/dashboard/company/profile/company_job_post_video_feed_repository_impl.dart';
+import 'package:highlite_flutter_mvp/data/repositories/dashboard/company/profile/company_profile_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/integrated_uploader/http_uploader_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/integrated_uploader/integrated_uploader_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/onboarding/onboarding_repository_impl.dart';
 import 'package:highlite_flutter_mvp/data/repositories/persistent/persistent_repository_impl.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/auth/auth_repository.dart';
-import 'package:highlite_flutter_mvp/domain/repositories/dashboard/candidate/home/candidate_following_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/candidate/home/job_post_video_feed_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/candidate/profile/candidate_profile_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/candidate/profile/candidate_video_feed_repository.dart';
@@ -31,6 +30,7 @@ import 'package:highlite_flutter_mvp/domain/repositories/dashboard/common/bookma
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/common/feed_service/home_feed_state_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/common/feed_service/video_feed_integrated_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/common/video_player/video_player_queue_repository.dart';
+import 'package:highlite_flutter_mvp/domain/repositories/dashboard/company/profile/company_profile_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/integrated_uploader/http_uploader_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/integrated_uploader/integrated_uploader_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/onboarding/onboarding_repositoy.dart';
@@ -110,6 +110,11 @@ Future<void> init() async {
           localDataSource: sl(), remoteDataSources: sl(), networkInfo: sl()),
       instanceName: InjectionConstant.candidateProfileRepository);
 
+  // *********************** COMPANY PROFILE REPOSITORY***********************
+  sl.registerLazySingleton<CompanyProfileRepository>(
+          () => CompanyProfileRepositoryImpl(
+          localDataSource: sl(), remoteDataSources: sl(), networkInfo: sl()));
+
   //register Parameter of
   sl.registerLazySingleton<RemoteDataSources>(() => RemoteDataSourceImpl());
   sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
@@ -171,6 +176,10 @@ Future<void> init() async {
 
   // *********************** CONTEXT ***********************//
   sl.registerFactory<NavigationService>(() => NavigationService());
+
+
+
+
 
 
 

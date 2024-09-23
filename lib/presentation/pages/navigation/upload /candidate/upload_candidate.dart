@@ -7,7 +7,6 @@ import 'package:highlite_flutter_mvp/core/resources/asset_constants.dart';
 import 'package:highlite_flutter_mvp/core/resources/color_constants.dart';
 import 'package:highlite_flutter_mvp/core/resources/l10n/translation_key.dart';
 import 'package:highlite_flutter_mvp/core/resources/typography_theme.dart';
-import 'package:highlite_flutter_mvp/core/services/push_notification_service.dart';
 import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/upload/candidate/video/upload_candidate_bloc.dart';
 import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/upload/candidate/video/upload_candidate_event.dart';
 import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/upload/candidate/video/upload_candidate_state.dart';

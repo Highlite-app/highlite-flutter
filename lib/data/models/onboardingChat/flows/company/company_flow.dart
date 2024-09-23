@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
+import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/company_onboarding.dart';
+import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/api_flows/company_signup.dart';
 
-import '../../../../../app.dart';
 import '../../../../../core/routes/route_constants.dart';
-import '../../../../../presentation/pages/dashboard/company_dashboard.dart';
 import '../../../../../presentation/widgets/onboarding/onboarding_success.dart';
 import '../general/general_flow_model.dart';
-import '../job_post/job_post_flow.dart';
 import '../onboarding_chat_models.dart';
 import 'company_flow_model.dart';
 import 'company_steps.dart';
@@ -13,16 +12,18 @@ import 'company_steps.dart';
 class CompanyFlow extends OnboardingChatFlow<CompanyFlowModel> {
   @override
   List<OnboardingChatFlowItem> get steps => [
-    CompanySteps.companyNameStep,
-    CompanySteps.jobIndustry ,
-    CompanySteps.location ,
-    CompanySteps.companyWebsite ,
-    CompanySteps.companyBenefitStep,
-    CompanySteps.about,
-    CompanySteps.emailAddress ,
-  ];
+        CompanySteps.companyNameStep,
+        CompanySteps.jobIndustry,
+        CompanySteps.location,
+        CompanySteps.companySizeStep,
+        CompanySteps.companyWebsite,
+        CompanySteps.companyBenefitStep,
+        CompanySteps.about,
+        CompanySteps.emailAddress,
+      ];
 
   final GeneralFlowModel generalModel;
+
   CompanyFlow({
     required super.initialStep,
     required this.generalModel,
@@ -30,19 +31,18 @@ class CompanyFlow extends OnboardingChatFlow<CompanyFlowModel> {
 
   @override
   FlowStepResponse Function() get conclusion => () {
+        final companyFlowModel = getGeneratedModel();
         return FlowStepResponse(
           indicator: FlowResponseTags.completeFlow,
-          // flowAttached: JobPostFlow(
-          //   initialStep: 0,
-          //   generalModel: generalModel,
-          //   companyModel: getGeneratedModel(),
-          // ),
-            completionFlow:    showOnboardingSuccess(
-             "Srijan",
-                  () async{
-                await  Get.toNamed(RouteConstants.companyDashboard);
-              },
-            ),
+          apiFlow: CompanySignupFlow(
+              companyOnboarding: CompanyOnboarding.fromOnboarding(
+                  generalModel, companyFlowModel)),
+          completionFlow: showOnboardingSuccess(
+            companyFlowModel.companyName,
+            () async {
+              await Get.toNamed(RouteConstants.companyDashboard);
+            },
+          ),
         );
       };
 

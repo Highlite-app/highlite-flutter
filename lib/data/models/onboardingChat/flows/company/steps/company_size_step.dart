@@ -54,7 +54,7 @@ class CompanySizeStep extends OnboardingChatFlowItem {
             ),
           ),
           modifier: (payload, tag, messages) async {
-            payload[tag] = messages;
+            payload[tag] = messages.first;
             return Future.value(FlowResponse.successResponse);
           },
           postModifyStep: OnboardingStepDefaults.createPostModifyStepAsWhole(

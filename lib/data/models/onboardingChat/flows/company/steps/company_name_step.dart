@@ -15,12 +15,12 @@ class CompanyNameStep extends OnboardingChatFlowItem{
   messages:(payload) =>[
     ChatMessage(
         tag: CompanyTags.companyName ,
-        message:   TranslationKeys.companyName ,
+        message:   TranslationKeys.whatsYourCompanyName ,
         chatId: OnboardingChatter.bot),
   ],
   respondent:(focusNode)=> DefaultChatResponders.name(focusNode),
   modifier: (payload, tag , messages) async{
-    payload[tag]= messages;
+    payload[tag]= messages.first;
     return Future.value(FlowResponse.successResponse);
   },
     postModifyStep: OnboardingStepDefaults.createPostModifyStepAsWhole(

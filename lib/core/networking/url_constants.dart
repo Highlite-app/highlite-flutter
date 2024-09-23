@@ -4,8 +4,8 @@ class UrlConstants{
 
   static const mockListUrl = "/ravitejaavv/mock/main/mobile.json";
   static const onBoardingCandidateDetails = "/Candidate/candidateDetails";
-    static const getOnBoardingCandidateDetails = "/Candidate/getCandidateDetails";
-    static const updateOnBoardingCandidateDetails = "/Candidate/updateCandidate";
+  static const getOnBoardingCandidateDetails = "/Candidate/getCandidateDetails";
+  static const updateOnBoardingCandidateDetails = "/Candidate/updateCandidate";
   static const fetchCompanyHomeFeed = "/HomeFeed/fetchCompanyHomeFeed";
   static const fetchCandidateHomeFeed = "/HomeFeed/fetchCandidateHomeFeed";
   static const about = "/Candidate/createAbout";
@@ -19,4 +19,11 @@ class UrlConstants{
   static const sendEmail = "/emailAuthentication/sendEmail";
   static const verifyEmail = "/emailAuthentication/verifyOtp";
   static const signUp = "/auth/signup";
+
+
+// ******************* Company Section *************************
+
+static const onBoardingCompanyDetails = "/Company/companyOnBoarding" ;
+static const getOnBoardingCompanyDetails = "/Company/getCompanyUserDetails";
+static const updateOnBoardingCompanyDetails = "/Company/updateCompanyUserDetails";
 }

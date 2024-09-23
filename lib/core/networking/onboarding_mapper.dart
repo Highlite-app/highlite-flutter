@@ -7,6 +7,7 @@ import 'package:highlite_flutter_mvp/data/models/apis/onboarding/bookmark/respon
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/candidate/candidate_onboarding.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/candidate/update_candidate_onboarding.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/company_onboarding.dart';
+import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/update_company_onboarding.dart';
 
 import '../../data/models/apis/dashboard/cadidate/upload/video/candidate_video_feed_response.dart';
 import '../../data/models/apis/dashboard/company/home/company_job_feed_item_response.dart';
@@ -39,7 +40,9 @@ void registerOnBoardingConstructors() {
     return CandidateVideoFeed.listFromJson(map as List<dynamic>);
   });
 
+  MapperFactory.registerConstructor<CompanyOnboarding>((map)=> CompanyOnboarding.fromJson(map)) ;
   MapperFactory.registerConstructor<UpdateCandidate>((map)=> UpdateCandidate.fromJson(map)) ;
+  MapperFactory.registerConstructor<UpdateCompanyOnboarding>((map)=> UpdateCompanyOnboarding.fromJson(map)) ;
 
   MapperFactory.registerConstructor<VerifyEmailOtpResponse>((map)=>VerifyEmailOtpResponse.fromJson(map) );
 

@@ -36,7 +36,6 @@ import '../../../auth/authentication_event.dart';
 class UploadCandidateBloc
     extends Bloc<UploadCandidateEvent, UploadCandidateState> {
   UploadCandidateBloc() : super(UploadCandidateState()) {
-   // on<StartUploadCandidate>(_handleStartUpload);
     on<PickVideoEvent>(_handlePickVideo);
     on<UpdateThumbnailEvent>(_handleUpdateThumbnail);
     on<UpdateDescriptionEvent>(_handleUpdateDescription);
@@ -48,52 +47,7 @@ class UploadCandidateBloc
     on<ResetIsVideoStateEvent>(_handleResetVideo);
   }
 
-  Future<void> _handleStartUpload(
-    StartUploadCandidate event,
-    Emitter<UploadCandidateState> emit,
-  ) async {
 
-    // emit(state.copyWith(isVideo: true)) ;
-    // FileModel? saveVideo = await FileManager().pickVideoWithModel(ImageSource.camera);
-    // if (saveVideo != null && saveVideo.file != null) {
-    //
-    //   // Print the original file path for debugging
-    //   print('Original video path: ${saveVideo.file?.path}');
-    //
-    //   File videoToUpload = saveVideo.file!; // Default to the original video file
-    //
-    //   try {
-    //     // Attempt to compress the video
-    //     final info = await VideoCompress.compressVideo(
-    //       saveVideo.file!.path,
-    //       quality: VideoQuality.LowQuality,
-    //       deleteOrigin: false,
-    //       includeAudio: true,
-    //     );
-    //
-    //     // Check if compression was successful
-    //     if (info != null && info.file != null && info.file!.existsSync()) {
-    //       print('Compression successful: ${info.path}');
-    //       videoToUpload = info.file!;
-    //       logger.logEvent("The info is after compressed ${info.path}");
-    //     } else {
-    //       print('Compression failed or was cancelled. Using original video.');
-    //     }
-    //   } catch (e) {
-    //     print('Error during video compression: $e');
-    //     print('Using original video instead.');
-    //   }
-    //
-    //   // Proceed with the selected video (compressed or original)
-    //   add(PickVideoEvent(video: videoToUpload));
-    //   emit(state.copyWith(isUpload: true)) ;
-    //
-    // } else {
-    //   print('Error: No video was selected or video file is invalid.');
-    // }
-
-
-  }
 
   Future<void> _handleResetVideo(
       ResetIsVideoStateEvent event, Emitter<UploadCandidateState> emit) async {

@@ -12,19 +12,29 @@ import '../../../../data/repositories/auth/auth_repository_impl.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
 
-final authentication = sl.get<AuthenticationBloc>(instanceName: InjectionConstant.authenticationBloc) ;
+final authentication = sl.get<AuthenticationBloc>(
+    instanceName: InjectionConstant.authenticationBloc);
 
-
-class AuthenticationBloc  extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc(
-      ) : super(AuthenticationState()) {
-
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
+  AuthenticationBloc() : super(AuthenticationState()) {
     on<AuthenticateOnStartEvent>(_handleAuthenticateOnStart);
     on<AuthenticateOnboardingEvent>(_handleAuthenticateOnboarding);
     on<AttachAuthenticationEvent>(_handleAttach);
     on<AuthenticateCompanyEvent>(_handleAuthenticateCompany);
     on<AuthenticateCandidateEvent>(_handleAuthenticateCandidate);
-    on<LogoutEvent>((event, emit) async {
+    on<LogoutEvent>(
+      (event, emit) async {
+        emit(state.copyWith(
+            candidate: null,
+            companyProfile: null,
+            candidateVideoFeed: [],
+            companyJobPosts: [],
+            userType: null,
+            companyJobPostVideoFeed: [],
+            id: null,
+            isAuthenticated: false,
+            isProcessing: false));
         await authService.logout();
       },
     );
@@ -51,18 +61,17 @@ class AuthenticationBloc  extends Bloc<AuthenticationEvent, AuthenticationState>
     } else {
       add(const AuthenticateCandidateEvent());
     }
-   // profileSetter.add(const ExecuteProfileUpdateEvent());
+    // profileSetter.add(const ExecuteProfileUpdateEvent());
   }
 
   Future<void> _handleAuthenticateOnStart(
     AuthenticateOnStartEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-   // await homeFeedState.reset();
+    // await homeFeedState.reset();
     await authService.autoLogin();
     emit(state.copyWith(isAuthenticated: authService.persistedUser != null));
     add(const AttachAuthenticationEvent());
-
   }
 
   Future<void> _handleAttach(
@@ -77,17 +86,18 @@ class AuthenticationBloc  extends Bloc<AuthenticationEvent, AuthenticationState>
         ),
       );
       if (authService.persistedUser!.userType == UserTypes.company) {
-        logger.logEvent("*******Inside Company Section ********" , tag: "COMPANY");
+        logger.logEvent("*******Inside Company Section ********",
+            tag: "COMPANY");
         add(const AuthenticateCompanyEvent());
-        Get.toNamed(RouteConstants.companyDashboard) ;
+        Get.toNamed(RouteConstants.companyDashboard);
       } else {
         add(const AuthenticateCandidateEvent());
-        logger.logEvent("*******Inside Candidate Section ********" , tag:"CANDIDATE");
+        logger.logEvent("*******Inside Candidate Section ********",
+            tag: "CANDIDATE");
         Get.toNamed(RouteConstants.candidateDashboard);
       }
     } else {
       Get.toNamed(RouteConstants.onBoardingSplash);
-
     }
   }
 
@@ -98,21 +108,21 @@ class AuthenticationBloc  extends Bloc<AuthenticationEvent, AuthenticationState>
     emit(
       state.copyWith(
         companyProfile: authService.companyOnboarding,
-        companyJobPosts: authService.companyJobPosts,
-        companyJobPostVideoFeed: authService.companyJobPostVideoFeed,
+        companyJobPosts: [],
+        companyJobPostVideoFeed: [],
       ),
     );
+    print("Thr company profile is :: ${state.companyProfile?.about}");
   }
 
   Future<void> _handleAuthenticateCandidate(
     AuthenticateCandidateEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    debugPrint("The candidate inside AuthenticationBloc _handleAuthenticateCandidate ::: ${state.candidate?.firstName ?? "empty"} ");
-    emit(state.copyWith(candidate: authService.candidateOnBoarding ,
+    emit(state.copyWith(
+        candidate: authService.candidateOnBoarding,
         candidateVideoFeed: authService.candidateVideoFeed));
-    debugPrint("The candidate inside AuthenticationBloc _handleAuthenticateCandidate ::: ${state.candidate?.firstName ?? ""} ");
-   // emit(state.copyWith(candidateVideoFeed: authService.))
+    // emit(state.copyWith(candidateVideoFeed: authService.))
     // / candidateVideoFeed: authService.candidateVideoFeed,
   }
 }

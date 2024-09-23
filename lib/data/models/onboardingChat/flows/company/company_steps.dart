@@ -40,23 +40,14 @@ class CompanyFlowTags {
 }
 
 class CompanySteps {
-  // static OnboardingChatFlowItem username = UsernameStep(false);
-  // static OnboardingChatFlowItem location = LocationStep();
-  // static OnboardingChatFlowItem title = JobPositionTitleStep();
- // static OnboardingChatFlowItem organization = OrganizationStep();
 
-
-//  static OnboardingChatFlowItem companyEmployees = CompanyEmployeesStep();
   static OnboardingChatFlowItem companyNameStep = CompanyNameStep();
   static OnboardingChatFlowItem jobIndustry = CompanyIndustryStep();
+  static OnboardingChatFlowItem location = LocationStep(false);
   static OnboardingChatFlowItem companySizeStep = CompanySizeStep();
   static OnboardingChatFlowItem companyBenefitStep = CompanyBenefitsStep();
- // static OnboardingChatFlowItem jobFlexibility = JobFlexibilityStep(isCandidate: false);
-//  static OnboardingChatFlowItem jobType = JobDurationStep();
-  //static OnboardingChatFlowItem hourlyRate = HourlyRateStep(isCandidate: false);
-  static OnboardingChatFlowItem location = LocationStep(false);
   static OnboardingChatFlowItem companyWebsite = CompanyWebsiteStep();
   static OnboardingChatFlowItem emailAddress = EmailAddressStep();
   static OnboardingChatFlowItem about = AboutStep(false);
-  // static OnboardingChatFlowItem companyLogo = ProfileStep(true);
+
 }

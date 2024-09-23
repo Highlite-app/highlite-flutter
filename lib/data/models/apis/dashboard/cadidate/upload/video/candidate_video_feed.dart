@@ -27,7 +27,7 @@ class CandidateVideoFeed {
 
 
   static List<CandidateVideoFeed> listFromJson(List<dynamic> jsonList){
-  return   jsonList.map((e) => CandidateVideoFeed.fromJson(e)).toList() ;
+  return jsonList.map((e) => CandidateVideoFeed.fromJson(e)).toList() ;
   }
   factory CandidateVideoFeed.fromJson(Map<String, dynamic> json) {
     return CandidateVideoFeed(
