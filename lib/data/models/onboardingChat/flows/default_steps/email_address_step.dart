@@ -7,6 +7,7 @@ import 'package:highlite_flutter_mvp/core/resources/l10n/translation_key.dart';
 import 'package:highlite_flutter_mvp/core/resources/preference_constants.dart';
 import 'package:highlite_flutter_mvp/core/services/firebase_service.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/authentication/create_user.dart';
+import 'package:highlite_flutter_mvp/data/models/apis/authentication/signup_response.dart';
 import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/candidate/candidate_steps.dart';
 import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/login/login_flow/login_flow.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/onboarding/onboarding_repositoy.dart';
@@ -15,6 +16,7 @@ import '../../../../../core/constants/default_responders.dart';
 import '../../../../../presentation/widgets/chat/chat_bubble.dart';
 import '../../../../../presentation/widgets/chat/chat_responder.dart';
 import '../../../defaults/onboarding_step_defaults.dart';
+import '../company/company_steps.dart';
 import '../general/general_flow.dart';
 import '../onboarding_chat_models.dart';
 import 'default_steps.dart';
@@ -108,13 +110,26 @@ class EmailAddressStep extends OnboardingChatFlowItem {
             if(messages.first == TranslationKeys.signUpGoogle){
               ProviderEnum.google ;
             }
-          final signUpResponse  =   await onboardingService.signUp(CreateUser(
-              firstName: CandidateTags.firstName ,
-              email: DefaultTags.email ,
-              provider: "google",
-             providerId: FirebaseConstant.providerId ,
-            userType: UserTypes.candidate
-            )) ;
+
+             SignUpResponse signUpResponse = SignUpResponse.getDefault();
+            if(GeneralFlowTags.userType == UserTypes.candidate){
+               signUpResponse  =   await onboardingService.signUp(CreateUser(
+                  firstName: CandidateTags.firstName ,
+                  email: DefaultTags.email ,
+                  provider: "google",
+                  providerId: FirebaseConstant.providerId ,
+                  userType: UserTypes.candidate
+              )) ;
+            }else {
+               signUpResponse  =  await onboardingService.signUp(CreateUser(
+                  firstName: CompanyTags.companyName ,
+                  email: CompanyTags.email ,
+                  provider: "google",
+                  providerId: FirebaseConstant.providerId ,
+                  userType: UserTypes.company
+              )) ;
+            }
+
             if (emailAddressFromSocial != null && signUpResponse.status == true ) {
               payload[DefaultTags.email] = emailAddressFromSocial;
 

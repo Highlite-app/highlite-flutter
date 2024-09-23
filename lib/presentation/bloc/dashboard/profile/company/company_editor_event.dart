@@ -21,8 +21,7 @@ class UpdateCompanyUserEvent extends CompanyEditorEvent {
 }
 
 class ChangeCompanyProfilePictureEvent extends CompanyEditorEvent {
-  const ChangeCompanyProfilePictureEvent({required this.companyLogo});
-  final FileImage? companyLogo;
+  const ChangeCompanyProfilePictureEvent();
 }
 
 class AttachCompanyVideoEvent extends CompanyEditorEvent {

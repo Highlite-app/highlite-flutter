@@ -1,21 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:highlite_flutter_mvp/core/local_storage/highlite_candidate_storage_service.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/persistent/persistent_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-
-import '../../../../../core/constants/video_feed_constants.dart';
-import '../../../../../core/resources/l10n/translation_key.dart';
 import '../../../../../core/services/firebase_service.dart';
 import '../../../../../data/models/apis/dashboard/cadidate/upload/video/candidate_video_feed.dart';
 import '../../../../../data/models/apis/onboarding/candidate/candidate_onboarding.dart';
-import '../../../../../data/repositories/s3_bucket/presigner_types.dart';
 import '../../../../../domain/repositories/auth/auth_repository.dart';
 import '../../../../../domain/repositories/dashboard/candidate/profile/candidate_profile_repository.dart';
-import '../../../../../domain/repositories/integrated_uploader/integrated_uploader_repository.dart';
 import '../../../../widgets/utils/file.dart';
 import '../../auth/authentication_bloc.dart';
 import '../../auth/authentication_event.dart';
@@ -29,8 +22,9 @@ class CandidateEditorBloc
     required CandidateOnBoarding? candidate,
     List<CandidateVideoFeed>? videoFeed,
   }) : super(
-          CandidateEditorState(candidateOnBoarding:
-          candidate?? CandidateOnBoarding.defaultOnboarding(),
+          CandidateEditorState(
+              candidateOnBoarding:
+                  candidate ?? CandidateOnBoarding.defaultOnboarding(),
               candidateVideFeed: videoFeed ?? []),
         ) {
     on<CandidateEditorStartEvent>(
@@ -66,11 +60,11 @@ class CandidateEditorBloc
     final updatedCandidate = await candidateProfileService
         .updateCandidateProfile(event.candidate, id ?? '');
 
-    authService.candidateOnBoarding = updatedCandidate ;
+    authService.candidateOnBoarding = updatedCandidate;
     //
     // authentication
     //     .add(AuthenticateOnboardingEvent(id ?? '', userType ?? ''));
-    authentication.add(const AuthenticateCandidateEvent()) ;
+    authentication.add(const AuthenticateCandidateEvent());
 
     emit(state.copyWith(candidateOnBoarding: updatedCandidate));
   }
@@ -88,12 +82,13 @@ class CandidateEditorBloc
 
       final persisted = await persistenceService.get();
 
-
-      authService.candidateOnBoarding =    authService.candidateOnBoarding?.copyWith(
+      authService.candidateOnBoarding =
+          authService.candidateOnBoarding?.copyWith(
         profilePicture: url,
       );
-      authentication.add( const AuthenticateCandidateEvent());
-      add( UpdateCandidateEvent(candidate: state.candidateOnBoarding.copyWith(profilePicture: url))) ;
+      authentication.add(const AuthenticateCandidateEvent());
+      add(UpdateCandidateEvent(
+          candidate: state.candidateOnBoarding.copyWith(profilePicture: url)));
     }
   }
 }

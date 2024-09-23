@@ -13,6 +13,8 @@ import 'package:highlite_flutter_mvp/data/models/apis/login/signin_api.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/bookmark/response/bookmark_collection_item_response.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/candidate/candidate_onboarding.dart';
 import 'package:highlite_flutter_mvp/data/models/apis/onboarding/candidate/update_candidate_onboarding.dart';
+import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/company_onboarding.dart';
+import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/update_company_onboarding.dart';
 import 'package:highlite_flutter_mvp/data/models/onboarding/login_with_email_otp_model.dart';
 import 'package:highlite_flutter_mvp/data/models/onboarding/question_model.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/utils/logger.dart';
@@ -37,11 +39,11 @@ import '../models/apis/onboarding/bookmark/request/bookmark_model.dart';
 abstract class RemoteDataSources {
   Future<QuestionsModel> getOnboardingQuestions();
 
-  Future<EmailOtpResponse> sendEmailOtpForSignIn(String recipient) ;
+  Future<EmailOtpResponse> sendEmailOtpForSignIn(String recipient);
 
-  Future<VerifyEmailOtpResponse> verifyEmailOtp(VerifyEmailOtp  verifyEmailOtp) ;
+  Future<VerifyEmailOtpResponse> verifyEmailOtp(VerifyEmailOtp verifyEmailOtp);
 
-  Future<SignUpResponse> signup(CreateUser createUser) ;
+  Future<SignUpResponse> signup(CreateUser createUser);
 
   Future<LoginWithEmailOtpModel> getLoginWithEmailOtp(String email);
 
@@ -76,7 +78,16 @@ abstract class RemoteDataSources {
 
   Future<ApiResponse> createBookmark(BookmarkModel bookmarkModel);
 
-  Future<BookmarkCollectionItemResponse> fetchBookmark(NextTokenRequest? request , String userId);
+  Future<BookmarkCollectionItemResponse> fetchBookmark(
+      NextTokenRequest? request, String userId);
+
+  // ******************* Company Section *************************
+
+  Future<SigninResponse> signUpCompany(CompanyOnboarding companyOnboarding);
+
+  Future<CompanyOnboarding> getCompanyOnboarding(String companyId);
+
+  Future<CompanyOnboarding> updateCompanyOnboarding(String companyId , CompanyOnboarding companyOnboarding ) ;
 }
 
 class RemoteDataSourceImpl implements RemoteDataSources {
@@ -86,89 +97,102 @@ class RemoteDataSourceImpl implements RemoteDataSources {
     throw UnimplementedError();
   }
 
-
   @override
-  Future<SignUpResponse> signup(CreateUser createUser) async{
+  Future<SignUpResponse> signup(CreateUser createUser) async {
+    try {
+      final response = await apiService.postApiCall<SignUpResponse>(
+          url: UrlConstants.signUp, body: createUser.toJson());
 
-    try{
-      final response  =  await apiService.postApiCall<SignUpResponse>(url: UrlConstants.signUp, body:  createUser.toJson()) ;
-
-      if(response.isSuccess){
-        final responseData = response.responseData ;
-        if(responseData !=null){
+      if (response.isSuccess) {
+        final responseData = response.responseData;
+        if (responseData != null) {
           logger.logEvent(
               'The status is ${UrlConstants.signUp} is ${responseData.status}');
-          return responseData ;
-        }else {
-          logger.logEvent("The ${UrlConstants.signUp} ${response.responseData} is null or Empty") ;
-          throw ApiErrorModel( "The ${UrlConstants.signUp} ${response.responseData} is null or Empty", HttpStatus.noContent ) ;
+          return responseData;
+        } else {
+          logger.logEvent(
+              "The ${UrlConstants.signUp} ${response.responseData} is null or Empty");
+          throw ApiErrorModel(
+              "The ${UrlConstants.signUp} ${response.responseData} is null or Empty",
+              HttpStatus.noContent);
         }
-
-      }else {
-        logger.logEvent("The ${UrlConstants.signUp} response is not success check ${response.httpStatusCode}") ;
-        throw ApiErrorModel( "The ${UrlConstants.signUp} response is not success check ${response.httpStatusCode}", HttpStatus.conflict ) ;
+      } else {
+        logger.logEvent(
+            "The ${UrlConstants.signUp} response is not success check ${response.httpStatusCode}");
+        throw ApiErrorModel(
+            "The ${UrlConstants.signUp} response is not success check ${response.httpStatusCode}",
+            HttpStatus.conflict);
       }
-    }catch(e){
-      throw Exception("Something went wrong ${UrlConstants.signUp} :: $e") ;
-
+    } catch (e) {
+      throw Exception("Something went wrong ${UrlConstants.signUp} :: $e");
     }
   }
 
   @override
-  Future<EmailOtpResponse> sendEmailOtpForSignIn(String recipient) async{
-    try{
-      final response  =  await apiService.postApiCall<EmailOtpResponse>(url: UrlConstants.sendEmail, body: {
-        'recipient':recipient ,
+  Future<EmailOtpResponse> sendEmailOtpForSignIn(String recipient) async {
+    try {
+      final response = await apiService
+          .postApiCall<EmailOtpResponse>(url: UrlConstants.sendEmail, body: {
+        'recipient': recipient,
       });
 
-      if(response.isSuccess){
-        final responseData = response.responseData ;
-       if(responseData !=null){
-         logger.logEvent(
-             'The OTP is ${UrlConstants.sendEmail} is ${responseData.otp}');
-         return responseData ;
-       }else {
-         logger.logEvent("The ${UrlConstants.sendEmail} ${response.responseData} is null or Empty") ;
-         throw ApiErrorModel( "The ${UrlConstants.sendEmail} ${response.responseData} is null or Empty", HttpStatus.noContent ) ;
-       }
-
-      }else {
-        logger.logEvent("The ${UrlConstants.sendEmail} response is not success check ${response.httpStatusCode}") ;
-        throw ApiErrorModel( "The ${UrlConstants.sendEmail} response is not success check ${response.httpStatusCode}", HttpStatus.conflict ) ;
+      if (response.isSuccess) {
+        final responseData = response.responseData;
+        if (responseData != null) {
+          logger.logEvent(
+              'The OTP is ${UrlConstants.sendEmail} is ${responseData.otp}');
+          return responseData;
+        } else {
+          logger.logEvent(
+              "The ${UrlConstants.sendEmail} ${response.responseData} is null or Empty");
+          throw ApiErrorModel(
+              "The ${UrlConstants.sendEmail} ${response.responseData} is null or Empty",
+              HttpStatus.noContent);
+        }
+      } else {
+        logger.logEvent(
+            "The ${UrlConstants.sendEmail} response is not success check ${response.httpStatusCode}");
+        throw ApiErrorModel(
+            "The ${UrlConstants.sendEmail} response is not success check ${response.httpStatusCode}",
+            HttpStatus.conflict);
       }
-    }catch(e){
-      throw Exception("Something went wrong ${UrlConstants.sendEmail} :: $e") ; 
-
+    } catch (e) {
+      throw Exception("Something went wrong ${UrlConstants.sendEmail} :: $e");
     }
-
   }
-
 
   @override
-  Future<VerifyEmailOtpResponse> verifyEmailOtp(VerifyEmailOtp verifyEmailOtp)  async{
-    try{
-      final response  =  await apiService.postApiCall<VerifyEmailOtpResponse>(url: UrlConstants.verifyEmail, body: verifyEmailOtp.toJson());
+  Future<VerifyEmailOtpResponse> verifyEmailOtp(
+      VerifyEmailOtp verifyEmailOtp) async {
+    try {
+      final response = await apiService.postApiCall<VerifyEmailOtpResponse>(
+          url: UrlConstants.verifyEmail, body: verifyEmailOtp.toJson());
 
-      if(response.isSuccess){
-        final responseData = response.responseData ;
-        if(responseData !=null){
+      if (response.isSuccess) {
+        final responseData = response.responseData;
+        if (responseData != null) {
           logger.logEvent(
               'The  status is ${UrlConstants.verifyEmail} is ${responseData.status}');
-          return responseData ;
-        }else {
-          logger.logEvent("The ${UrlConstants.verifyEmail} ${response.responseData} is null or Empty") ;
-          throw ApiErrorModel( "The ${UrlConstants.verifyEmail} ${response.responseData} is null or Empty", HttpStatus.noContent ) ;
+          return responseData;
+        } else {
+          logger.logEvent(
+              "The ${UrlConstants.verifyEmail} ${response.responseData} is null or Empty");
+          throw ApiErrorModel(
+              "The ${UrlConstants.verifyEmail} ${response.responseData} is null or Empty",
+              HttpStatus.noContent);
         }
-
-      }else {
-        logger.logEvent("The ${UrlConstants.verifyEmail} response is not success check ${response.httpStatusCode}") ;
-        throw ApiErrorModel( "The ${UrlConstants.verifyEmail} response is not success check ${response.httpStatusCode}", HttpStatus.conflict ) ;
+      } else {
+        logger.logEvent(
+            "The ${UrlConstants.verifyEmail} response is not success check ${response.httpStatusCode}");
+        throw ApiErrorModel(
+            "The ${UrlConstants.verifyEmail} response is not success check ${response.httpStatusCode}",
+            HttpStatus.conflict);
       }
-    }catch(e){
-      throw Exception("Something went wrong ${UrlConstants.verifyEmail} :: $e") ;
-
+    } catch (e) {
+      throw Exception("Something went wrong ${UrlConstants.verifyEmail} :: $e");
     }
   }
+
   @override
   Future<QuestionsModel> getOnboardingQuestions() {
     // TODO: implement getOnboardingQuestions
@@ -465,35 +489,144 @@ class RemoteDataSourceImpl implements RemoteDataSources {
 
   @override
   Future<BookmarkCollectionItemResponse> fetchBookmark(
-      NextTokenRequest? request , String userId) async {
-
-
+      NextTokenRequest? request, String userId) async {
     try {
       final response = await apiService
           .getApiCall<BookmarkCollectionItemResponse>(
               url: "${UrlConstants.fetchBookmark}/$userId",
-          qParams: {'nextToken': request});
+              qParams: {'nextToken': request});
 
       logger.logEvent('response.isSuccess: ${response.isSuccess}');
 
       if (response.isSuccess) {
         final responseData = response.responseData;
 
-        if (responseData != null &&  responseData.items!.isNotEmpty )  {
-          logger.logEvent('The ${UrlConstants.fetchBookmark} is ${responseData.items}', isJson: true);
-          logger.logEvent('The ${UrlConstants.fetchBookmark} is ${responseData.items?.first.userId}', isJson: true);
+        if (responseData != null && responseData.items!.isNotEmpty) {
+          logger.logEvent(
+              'The ${UrlConstants.fetchBookmark} is ${responseData.items}',
+              isJson: true);
+          logger.logEvent(
+              'The ${UrlConstants.fetchBookmark} is ${responseData.items?.first.userId}',
+              isJson: true);
           return responseData;
         } else {
           logger.logEvent('No Items found in ${UrlConstants.fetchBookmark}');
-          return BookmarkCollectionItemResponse(items: [] , nextToken: request?.nextToken ?? '') ;
-
+          return BookmarkCollectionItemResponse(
+              items: [], nextToken: request?.nextToken ?? '');
         }
       } else {
-        throw ApiErrorModel("API call failed: ${UrlConstants.fetchBookmark}", HttpStatus.badRequest);
+        throw ApiErrorModel("API call failed: ${UrlConstants.fetchBookmark}",
+            HttpStatus.badRequest);
       }
     } catch (e) {
-      logger.logEvent('Something went wrong with ${UrlConstants.fetchBookmark}, Reason: $e',);
+      logger.logEvent(
+        'Something went wrong with ${UrlConstants.fetchBookmark}, Reason: $e',
+      );
       throw Exception('The exception in ${UrlConstants.fetchBookmark} API: $e');
+    }
+  }
+
+// ******************* Company Section *************************
+
+  @override
+  Future<SigninResponse> signUpCompany(
+      CompanyOnboarding companyOnboarding) async {
+    try {
+      final response = await apiService.postApiCall<SigninResponse>(
+          url: UrlConstants.onBoardingCompanyDetails,
+          body: companyOnboarding.toJson());
+      if (response.isSuccess) {
+        debugPrint(response.responseData?.data.id ?? '');
+        final responseData = response.responseData;
+        if (responseData != null) {
+          return responseData;
+        } else {
+          logger.logEvent(
+              "The ${UrlConstants.onBoardingCompanyDetails} ${response.responseData} is null or Empty");
+          throw ApiErrorModel(
+              "The ${UrlConstants.onBoardingCompanyDetails} ${response.responseData} is null or Empty",
+              HttpStatus.noContent);
+        }
+      } else {
+        logger.logEvent(
+            "The ${UrlConstants.onBoardingCompanyDetails} response is not success check ${response.httpStatusCode}");
+        throw ApiErrorModel(
+            "The ${UrlConstants.onBoardingCompanyDetails} response is not success check ${response.httpStatusCode}",
+            HttpStatus.conflict);
+      }
+    } catch (e) {
+      throw Exception(
+          "Something went wrong ${UrlConstants.onBoardingCompanyDetails} :: $e");
+    }
+  }
+
+  @override
+  Future<CompanyOnboarding> getCompanyOnboarding(String companyId) async {
+    try {
+      final response = await apiService.getApiCall<CompanyOnboarding>(
+          url: '${UrlConstants.getOnBoardingCompanyDetails}/$companyId');
+      if (response.isSuccess) {
+        debugPrint(response.responseData?.userName ?? '');
+        final responseData = response.responseData;
+        if (responseData != null) {
+          return responseData;
+        } else {
+          logger.logEvent(
+              "The ${UrlConstants.getOnBoardingCompanyDetails} ${response.responseData} is null or Empty");
+          throw ApiErrorModel(
+              "The ${UrlConstants.getOnBoardingCompanyDetails} ${response.responseData} is null or Empty",
+              HttpStatus.noContent);
+        }
+      } else {
+        logger.logEvent(
+            "The ${UrlConstants.onBoardingCompanyDetails} response is not success check ${response.httpStatusCode}");
+        throw ApiErrorModel(
+            "The ${UrlConstants.onBoardingCompanyDetails} response is not success check ${response.httpStatusCode}",
+            HttpStatus.conflict);
+      }
+    } catch (e) {
+      logger.logEvent(
+          'Something went wrong ${UrlConstants.onBoardingCompanyDetails} , Reason : $e');
+      throw ApiErrorModel(
+          "Something went wrong ${UrlConstants.onBoardingCompanyDetails}",
+          HttpStatus.httpVersionNotSupported);
+    }
+
+  }
+
+  @override
+  Future<CompanyOnboarding> updateCompanyOnboarding(String companyId, CompanyOnboarding companyOnboarding) async{
+    try {
+      final response = await apiService.putApiCall<UpdateCompanyOnboarding>(
+        url: '${UrlConstants.updateOnBoardingCompanyDetails}/$companyId',
+        body: companyOnboarding.toJson(),
+      );
+
+      if (response.isSuccess) {
+        final responseData = response.responseData?.company  ;
+
+        if (responseData != null) {
+          logger.logEvent(
+              'The ${UrlConstants.updateOnBoardingCompanyDetails} is ${responseData.companyName ?? ''}');
+          return responseData;
+        } else {
+          throw ApiErrorModel(
+            "Unexpected null response data from ${UrlConstants.updateOnBoardingCandidateDetails}",
+            HttpStatus.internalServerError,
+          );
+        }
+      } else {
+        throw ApiErrorModel(
+          "API call failed: ${UrlConstants.updateOnBoardingCandidateDetails}",
+          HttpStatus.badRequest,
+        );
+      }
+    } catch (e) {
+      logger.logEvent(
+        'Something went wrong with ${UrlConstants.updateOnBoardingCandidateDetails}, Reason: $e',
+      );
+      throw Exception(
+          'The exception in ${UrlConstants.updateOnBoardingCandidateDetails} API: $e');
     }
   }
 }

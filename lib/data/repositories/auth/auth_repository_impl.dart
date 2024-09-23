@@ -9,6 +9,7 @@ import 'package:highlite_flutter_mvp/data/models/apis/onboarding/company/company
 import 'package:highlite_flutter_mvp/data/repositories/persistent/persistent_repository_impl.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/candidate/profile/candidate_profile_repository.dart';
 import 'package:highlite_flutter_mvp/domain/repositories/dashboard/common/feed_service/home_feed_state_repository.dart';
+import 'package:highlite_flutter_mvp/domain/repositories/dashboard/company/profile/company_profile_repository.dart';
 import '../../../domain/repositories/auth/auth_repository.dart';
 import '../../../domain/repositories/persistent/persistent_repository.dart';
 import '../../../presentation/widgets/utils/logger.dart';
@@ -54,6 +55,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
   Future<void> _setByIdAndUserType(String id, String userType) async {
     if (userType == UserTypes.company) {
+      debugPrint("The user type is in AuthRepositoryImpl  $userType");
+      final companyDetails  = await companyProfileService.getCompanyOnboarding(id) ;
+      companyOnboarding =  companyDetails ;
+
       //TODO : REQUIRED WHILE WORKING ON COMPANY PROFILE
     } else {
       debugPrint("The user type is in AuthRepositoryImpl  $userType");

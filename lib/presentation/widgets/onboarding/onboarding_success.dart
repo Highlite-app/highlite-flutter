@@ -59,7 +59,7 @@ class OnboardingSuccessView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                   "Welcome ${CandidateTags.firstName}!",
+                   "Welcome $name!",
                     textAlign: TextAlign.center,
                     style:  BaseTextStyle(
                       fontSize: TypographyTheme.heading_H5,

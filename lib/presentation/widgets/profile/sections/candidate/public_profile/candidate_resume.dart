@@ -12,9 +12,9 @@ import 'package:highlite_flutter_mvp/presentation/widgets/profile/sections/compa
 import 'package:highlite_flutter_mvp/presentation/widgets/utils/iterable.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/utils/string.dart';
 
-import '../../../edit_profile/sections/candidate_education_section.dart';
-import '../../../edit_profile/sections/candidate_employment_section.dart';
-import '../../../edit_profile/sections/candidate_project_section.dart';
+import '../../../edit_profile/sections/candidate/candidate_education_section.dart';
+import '../../../edit_profile/sections/candidate/candidate_employment_section.dart';
+import '../../../edit_profile/sections/candidate/candidate_project_section.dart';
 import '../../company/sections/company_info_header.dart';
 
 class CandidateResume extends StatelessWidget {

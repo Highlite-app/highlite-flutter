@@ -58,7 +58,7 @@ class CompanyIndustryStep extends OnboardingChatFlowItem {
            ChatRespondent(
              checkBoxHintText: "Search industries",
           checkbox: sort(IndustryType.values.toList().map((skill) => skill.title).toList()) ,
-          checkboxSelection: MinMax(1, 3),
+          checkboxSelection: MinMax(1, 1),
       ),
     ),
           modifier: (payload, tag, messages) async {

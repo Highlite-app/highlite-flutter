@@ -4,7 +4,7 @@ import '../../../../../../data/models/onboarding/file_model.dart';
 
 abstract class UploadCandidateEvent {}
 
-class ToggleVideoEvent extends UploadCandidateEvent {}
+
 
 class PickVideoEvent extends UploadCandidateEvent {
   final File video;
@@ -12,9 +12,6 @@ class PickVideoEvent extends UploadCandidateEvent {
   PickVideoEvent({required this.video});
 }
 
-class StartUploadCandidate extends UploadCandidateEvent {
-  StartUploadCandidate() ;
-}
 
 class ResetIsVideoStateEvent extends UploadCandidateEvent{
   ResetIsVideoStateEvent() ;

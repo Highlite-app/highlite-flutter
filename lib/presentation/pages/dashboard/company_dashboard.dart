@@ -6,6 +6,8 @@ import 'package:highlite_flutter_mvp/dummy_page.dart';
 import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/auth/authentication_bloc.dart';
 import 'package:highlite_flutter_mvp/presentation/bloc/dashboard/auth/authentication_state.dart';
 import 'package:highlite_flutter_mvp/presentation/pages/navigation/home/candidate/candidate_home_feed.dart';
+import 'package:highlite_flutter_mvp/presentation/pages/navigation/home/company/comapany_home_feed.dart';
+import 'package:highlite_flutter_mvp/presentation/pages/navigation/search/candidate/candidate_search.dart';
 
 import '../../widgets/center_prompt_widget/center_prompt.dart';
 import '../../widgets/dashboard/dashboard_tabs.dart';
@@ -14,6 +16,7 @@ import '../../widgets/inbox/inbox_end_drawer.dart';
 import '../../widgets/toaster/toaster_widget.dart';
 import '../../widgets/uploader/overlaying_toast_stack.dart';
 import '../navigation/inbox/candidate/candidate_inbox.dart';
+import '../navigation/profile/company/self_company_profile.dart';
 import '../navigation/upload /company/upload_company.dart';
 
 class CompanyTabs {
@@ -21,7 +24,7 @@ class CompanyTabs {
   static String videoFeed = "Home";
   static String search = "Search";
   static String inbox = "Inbox";
-  static String bookmarks = "Bookmarks";
+  static String upload = "Upload";
   static String profile = "Profile";
 }
 
@@ -45,35 +48,35 @@ class _CompanyDashboardState extends State<CompanyDashboard>
   void initState() {
     _pages = [
       DashboardTab(
-        widget: CandidateHomeFeed(),
-        title: CompanyTabs.videoFeed,
+        tag:CompanyTabs.videoFeed ,
+        widget: CompanyHomeFeed(),
         icon: AssetConstant.homeSelectedIcon,
         selectedIcon: AssetConstant.homeSelectedIcon,
       ),
       DashboardTab(
-        widget: const DummyPage(),
-        title: CompanyTabs.search,
+        tag: CompanyTabs.search,
+        widget: const CandidateSearchPage(),
         icon: AssetConstant.searchIcon,
         selectedIcon: AssetConstant.searchIconSelected,
       ),
-      const DashboardTab(
+       DashboardTab(
+        tag: CompanyTabs.upload,
         widget: UploadCompany(),
-        title: "",
         isHighliteLogo: true,
         icon: AssetConstant.icHighLiteSMLogoSmall,
         selectedIcon: AssetConstant.icHighLiteSMLogoSmall,
       ),
       DashboardTab(
+        tag: CompanyTabs.inbox,
         widget: CandidateInboxPage(
           scaffoldState: _scaffoldState,
         ),
-        title: CompanyTabs.inbox,
         icon: AssetConstant.messageIcon,
         selectedIcon: AssetConstant.messageIconSelected,
       ),
       DashboardTab(
-        widget: DummyPage(),
-        title: CompanyTabs.profile,
+        tag: CompanyTabs.profile,
+        widget: const SelfCompanyProfile(),
       )
     ];
     super.initState();
@@ -85,7 +88,7 @@ class _CompanyDashboardState extends State<CompanyDashboard>
         builder: (context, authState) {
       final pages = _pages
           .where(
-            (element) => authState.isAuthenticated ? true : true,
+            (element) => authState.isAuthenticated ? true : element.title != CompanyTabs.profile,
           )
           .toList();
       return
@@ -122,8 +125,7 @@ class _CompanyDashboardState extends State<CompanyDashboard>
                 endDrawer: _selectedPageIndex == 2
                     ? BlocBuilder<AuthenticationBloc, AuthenticationState>(
                         builder: (context, authState) => InboxEndDrawer(
-                          profile: "",
-                         // profile: authState.companyProfile?.companyLogo ?? "",
+                          profile: authState.companyProfile?.companyLogo ?? '',
                           name: authState.companyProfile?.companyName ?? "",
                           onArchiveOpen: () {
                             // globalNavKey.currentState!.push(

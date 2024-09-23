@@ -18,13 +18,15 @@ import '../svg/svg_asset.dart';
 
 class DashboardTab {
   final Widget widget;
-  final String title;
+  final String? title;
+  final String? tag ;
   final String? icon;
   final String? selectedIcon;
   final bool isHighliteLogo ;
   const DashboardTab({
     required this.widget,
-    required this.title,
+     this.title,
+    this.tag ,
     this.icon,
     this.isHighliteLogo = false ,
     this.selectedIcon,
@@ -85,18 +87,19 @@ class DashboardTabs extends StatelessWidget {
             ),
             onTap: onSelectPage,
             tabs: tabs.mapIndexed((tab, index) {
-              if (tab.title == "Profile") {
+              if (tab.tag == "Profile") {
                 return BlocBuilder<AuthenticationBloc , AuthenticationState>(
-                  builder: (context, authState) => ProfileTabItem(
-                    isSelected: selectedIndex == index,
-                    onDarkSurface: onDarkTabs,
-                    title: tab.title.toString(),
-                    profile: authState.userType == UserTypes.candidate
-                        ?  ""
-                        // TODO : NEED TO ADD PROFILE PICTURE WHEN I UPDATE BACKEND CANDIDATE DETAILS API
-                       // ? (authState.candidate?.profilePhoto ?? "")
-                      //  : (authState.companyProfile?.companyLogo ?? ""),
-                        :  "",
+                  builder: (context, authState) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: ProfileTabItem(
+                      isSelected: selectedIndex == index,
+                      onDarkSurface: onDarkTabs,
+                      title: tab.title ?? '',
+                      profile: authState.userType == UserTypes.candidate
+                          ? (authState.candidate?.profilePicture ?? "")
+                          : (authState.companyProfile?.companyLogo ?? ""),
+
+                    ),
                   ),
                 );
               }
@@ -106,12 +109,11 @@ class DashboardTabs extends StatelessWidget {
                   child: TabItem(
                     asset: tab.icon.toString(),
                     selectedAsset: tab.selectedIcon.toString(),
-                    title: tab.title.toString(),
+                    title: tab.title,
                     isHighliteIcon: tab.isHighliteLogo ,
                     isSelected: selectedIndex == index ,
                     onDarkSurface: onDarkTabs,
                     child: selectedIndex == index ? const AnimatedLogo():  Image.asset(
-
                          AssetConstant.icHighLiteSMLogoSmallPng
 
                     ),
@@ -123,7 +125,7 @@ class DashboardTabs extends StatelessWidget {
                 child: TabItem(
                   asset: tab.icon.toString(),
                   selectedAsset: tab.selectedIcon.toString(),
-                  title: tab.title.toString(),
+                  title: tab.title ,
                   isHighliteIcon: tab.isHighliteLogo ,
                   isSelected: selectedIndex == index,
                   onDarkSurface: onDarkTabs,
@@ -161,11 +163,11 @@ class TabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return child != null ? child! :Tab(
+       text: title ?? '',
       icon: SvgAsset(
         asset: isSelected ? selectedAsset : asset,
         color:  onDarkSurface ? isSelected ? ColorConstant.shade00: ColorConstant.neutral400 : ColorConstant.neutral800,
       ),
-      text: title,
     );
   }
 }
@@ -175,7 +177,7 @@ class ProfileTabItem extends StatelessWidget {
   final bool isSelected;
   final bool onDarkSurface;
   final String profile;
-  const ProfileTabItem({
+  const   ProfileTabItem({
     super.key,
     required this.title,
     required this.isSelected,

@@ -40,7 +40,7 @@ class CompanySignupFlow extends APIFlow {
     );
     if (data.id != null && data.userType != null) {
       // ignore: use_build_context_synchronously
-      authentication.add(AuthenticateOnboardingEvent(
+       authentication.add(AuthenticateOnboardingEvent(
         data.id!,
         data.userType!,
       ));

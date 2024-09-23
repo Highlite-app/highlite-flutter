@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:highlite_flutter_mvp/presentation/pages/navigation/upload%20/candidate/resume%20/upload%20_resume.dart';
+import 'package:highlite_flutter_mvp/presentation/pages/navigation/upload%20/candidate/upload_candidate.dart';
 import 'package:highlite_flutter_mvp/presentation/pages/navigation/upload%20/company/upload%20information/upload_information.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/dialogs/upload_dialog.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/navigation/base_navigator.dart';
@@ -32,7 +33,7 @@ class UploadCompany extends StatefulWidget {
 }
 
 class _UploadCompanyState extends State<UploadCompany> {
-  bool isVideo = false;
+  bool isVideo = true;
   FileModel? pickVideo;
   String thumbnailUrl = '';
   final TextEditingController _descriptionController = TextEditingController();
@@ -47,7 +48,6 @@ class _UploadCompanyState extends State<UploadCompany> {
 
   List<String> tools = [];
   List<String> skills = [];
-  String salary = '';
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +58,8 @@ class _UploadCompanyState extends State<UploadCompany> {
     // });
     return BaseNavigator(
       builder: (navKey) => Scaffold(
-        backgroundColor: isVideo ? Colors.white : Colors.black,
-        appBar: isVideo
-            ? AppBar(
+        backgroundColor:  Colors.white ,
+        appBar: AppBar(
                 title: Text(
                   'New Job Post',
                   style: BaseTextStyle(
@@ -68,8 +67,7 @@ class _UploadCompanyState extends State<UploadCompany> {
                       fontSize: TypographyTheme.paragraph_p3),
                 ),
                 centerTitle: true,
-              )
-            : AppBar(backgroundColor: isVideo ? Colors.white : Colors.black),
+              ),
         body:
         Center(
           child: SingleChildScrollView(
@@ -127,17 +125,25 @@ class _UploadCompanyState extends State<UploadCompany> {
                                    fit: BoxFit.cover,
                                  ),
                                )
-                                   : Container(
-                                 width: 125,
-                                 height: 150,
-                                 decoration: BoxDecoration(
-                                     color: Colors.grey[300],
-                                   borderRadius:  BorderRadius.circular(6)
-                                 ),
-
-                                 child: const Center(
-                                     child: Text('Edit cover')),
-                               ),
+                                   :
+                               UploadVideo(text: "Upload Video", onTap: () async{
+                                 FileModel? saveVideo = await FileManager()
+                                     .pickVideoWithModel(ImageSource.camera);
+                                 if (saveVideo != null && saveVideo.file != null) {
+                                   if (context.mounted) {
+                                     setState(() {
+                                       pickVideo = saveVideo;
+                                     });
+                                     String generatedThumbnail =
+                                         await ThumbnailGenerator()
+                                         .generateThumbnail(pickVideo!.file!);
+                                     setState(() {
+                                       thumbnailUrl = generatedThumbnail;
+                                     });
+                                     debugPrint("Thumbnail URL is $thumbnailUrl");
+                                   }
+                                 }
+                               })
                                // Positioned(
                                //   bottom: 8,
                                //   right: 25,

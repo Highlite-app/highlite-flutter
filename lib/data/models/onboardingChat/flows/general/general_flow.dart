@@ -36,6 +36,7 @@ class GeneralFlow extends OnboardingChatFlow<GeneralFlowModel> {
         debugPrint("********|| CANDIDATE || *********");
         debugPrint("The User-Type is :::${flowModel.userType}");
         if (flowModel.userType == UserTypes.candidate) {
+          GeneralFlowTags.userType = UserTypes.candidate ;
           return FlowStepResponse(
             indicator: FlowResponseTags.nextFlow,
             flowAttached: CandidateFlow(
@@ -44,6 +45,7 @@ class GeneralFlow extends OnboardingChatFlow<GeneralFlowModel> {
             ),
           );
         } else {
+          GeneralFlowTags.userType = UserTypes.company ;
           debugPrint("********|| COMPANY || *********");
           debugPrint("The User-Type is :::${flowModel.userType}");
           return FlowStepResponse(

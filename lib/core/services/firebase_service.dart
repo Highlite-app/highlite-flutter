@@ -8,7 +8,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:highlite_flutter_mvp/core/constants/user_types.dart';
 import 'package:highlite_flutter_mvp/core/resources/l10n/translation_key.dart';
 import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/candidate/candidate_steps.dart';
+import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/company/company_steps.dart';
 import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/default_steps/default_steps.dart';
+import 'package:highlite_flutter_mvp/data/models/onboardingChat/flows/general/general_flow.dart';
+import 'package:highlite_flutter_mvp/domain/repositories/auth/auth_repository.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/utils/logger.dart';
 import 'package:highlite_flutter_mvp/presentation/widgets/utils/username_generator.dart';
 
@@ -64,18 +67,23 @@ class FirebaseService {
       final UserCredential authResult = await _auth.signInWithCredential(credential);
 
       //Adding  User Details//
-      CandidateTags.firstName = authResult.user?.displayName?.split(" ").first  ?? "";
-      print("The firstname is:: ${CandidateTags.firstName}") ;
-      print("The firstname from firebase is:: ${authResult.user?.displayName?.split(" ").first}") ;
-      CandidateTags.lastName = authResult.user?.displayName?.split(" ").last  ?? "";
-      print("The firstname is:: ${CandidateTags.lastName}") ;
-      DefaultTags.email = authResult.user?.email ?? "" ;
-      DefaultTags.username   = UserNameGenerator().getUserName(CandidateTags.firstName,  CandidateTags.lastName);
+      print("The user type is ::${GeneralFlowTags.userType}");
+      if(GeneralFlowTags.userType == UserTypes.candidate){
+        CandidateTags.firstName = authResult.user?.displayName?.split(" ").first  ?? "";
+        CandidateTags.lastName = authResult.user?.displayName?.split(" ").last  ?? "";
+        DefaultTags.email = authResult.user?.email ?? "" ;
+        DefaultTags.username   = UserNameGenerator().getUserName(CandidateTags.firstName,  CandidateTags.lastName);
+      }else {
+        CompanyTags.email = authResult.user?.email ?? "" ;
+        CompanyTags.userName   = UserNameGenerator().getUserName(CompanyFlowTags.companyName,  CompanyTags.website);
+
+      }
+
       // Return the signed-in user
        FirebaseConstant.providerId =   authResult.additionalUserInfo?.providerId ?? '' ;
       return authResult.user?.email;
     } catch (e) {
-      print("Error signing in with Google: $e");
+      logger.logEvent("Error signing in with Google: $e" , tag: "FIREBASE ERROR");
       return null;
     }
   }

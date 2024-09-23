@@ -32,11 +32,9 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
       required this.networkInfo});
 
   @override
-  Future<EmailOtpResponse> getLoginWithEmailOtp(
-      String recipient) async {
+  Future<EmailOtpResponse> getLoginWithEmailOtp(String recipient) async {
     if (await networkInfo.isConnected()) {
       return await remoteDataSources.sendEmailOtpForSignIn(recipient);
-
     } else {
       throw Exception("No Internet Connection");
     }
@@ -67,10 +65,8 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
 
   @override
   Future<SigninResponse> signUpCandidate(CandidateOnBoarding candidate) async {
-
     if (await networkInfo.isConnected()) {
-        return  await remoteDataSources.signUpCandidate(candidate);
-
+      return await remoteDataSources.signUpCandidate(candidate);
     } else {
       throw Exception("No Internet Connection");
     }
@@ -78,39 +74,42 @@ class OnBoardingRepositoryImpl extends OnBoardingRepository {
 
   @override
   Future<SigninResponse> signUpCompanyUser(
-      CompanyOnboarding companyOnboarding) {
-    // TODO: implement signUpCompanyUser
-    throw UnimplementedError();
+      CompanyOnboarding companyOnboarding) async {
+    if (await networkInfo.isConnected()) {
+      return await remoteDataSources.signUpCompany(companyOnboarding);
+    } else {
+      throw Exception("No Internet Connection");
+    }
   }
 
   @override
-  Future< VerifyEmailOtpResponse> verifyEmailOtp(VerifyEmailOtp verifyEmailOtp) async{
+  Future<VerifyEmailOtpResponse> verifyEmailOtp(
+      VerifyEmailOtp verifyEmailOtp) async {
     final VerifyEmailOtpResponse verifyEmailOtpResponse;
     if (await networkInfo.isConnected()) {
-    try {
-      verifyEmailOtpResponse =
-    await remoteDataSources.verifyEmailOtp(verifyEmailOtp);
-    return verifyEmailOtpResponse;
-    } catch(e) {
-    throw Exception();
-    }
+      try {
+        verifyEmailOtpResponse =
+            await remoteDataSources.verifyEmailOtp(verifyEmailOtp);
+        return verifyEmailOtpResponse;
+      } catch (e) {
+        throw Exception();
+      }
     } else {
-    throw Exception("No Internet Connection");
+      throw Exception("No Internet Connection");
     }
   }
 
   @override
   Future<SignUpResponse> signUp(CreateUser creteUser) async {
     if (await networkInfo.isConnected()) {
-    try {
-   final  signUpResponse  =
-    await remoteDataSources.signup(creteUser);
-    return signUpResponse;
-    } catch(e) {
-    throw Exception();
-    }
+      try {
+        final signUpResponse = await remoteDataSources.signup(creteUser);
+        return signUpResponse;
+      } catch (e) {
+        throw Exception();
+      }
     } else {
-    throw Exception("No Internet Connection");
+      throw Exception("No Internet Connection");
     }
   }
 }
