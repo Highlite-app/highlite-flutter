@@ -1,0 +1,5 @@
+{
+  "staticBaseUrl": "https://fakestoreapi.com",
+  "logEnabled": true,
+  "dbPassword": "db2drowssap"
+}

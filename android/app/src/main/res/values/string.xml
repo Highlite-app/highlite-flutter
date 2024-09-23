@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Highlite"</string>
+    <string name="facebook_app_id">619987249709996</string>
+    <string name="fb_login_protocol_scheme">fb619987249709996</string>
+    <string name="facebook_client_token">f77085664f7aa1f13da63c0fbf027e92</string>
+
+
+
+</resources>

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "179566512780",
+    "project_id": "highlite-app",
+    "storage_bucket": "highlite-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179566512780:android:30b9544aecdc162bc849a9",
+        "android_client_info": {
+          "package_name": "com.example.highlite_flutter_mvp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179566512780-trmluhjd6naodcu4khh2v461mmtaad3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.highlite_flutter_mvp",
+            "certificate_hash": "36f2052b64b84941e202d547367f692c0292d832"
+          }
+        },
+        {
+          "client_id": "179566512780-duvi2fuf4uhqdbqtbdpsi4akb4egnfr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjiIQcMRlUWlnzYhfz8IPPreGoa1cAZXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179566512780-duvi2fuf4uhqdbqtbdpsi4akb4egnfr2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "179566512780-4r5o5p32a6b2u8urnb6fpob9noe3b2vv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.highliteFlutterMvp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

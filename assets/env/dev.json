@@ -1,0 +1,6 @@
+{
+  "logEnabled": true,
+  "dbPassword": "db2drowssap",
+  "staticBaseUrl": "http://3.85.210.210:3000",
+  "autoPlayEnabled": true
+}
