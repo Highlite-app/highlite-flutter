@@ -58,11 +58,12 @@ Here are some screenshots that showcase the app’s user interface and features:
 
 | Home Feed                           | Candidate Profile                    | Company Job Post                     |
 |-------------------------------------|--------------------------------------|--------------------------------------|
-| ![Home Feed](screenshots/home_feed.png) | ![Candidate Profile](screenshots/candidate_profile.png) | ![Company Job Post](screenshots/company_job_post.png) | 
+| <img src="screenshots/home_feed.png" alt="Home Feed" width="360" height="720"/> | <img src="screenshots/candidate_profile.png" alt="Candidate Profile" width="360" height="720"/> | <img src="screenshots/company_job_post.png" alt="Company Job Post" width="360" height="720"/> |
 
 | Chat Flow                           | Job Matching Flow                    | Onboarding Flow                      |
 |-------------------------------------|--------------------------------------|--------------------------------------|
-| ![Chat Flow](screenshots/chat_flow.png) | ![Job Matching Flow](screenshots/matching_flow.png) | ![Onboarding Flow](screenshots/onboading_flow.png) |
+| <img src="screenshots/chat_flow.png" alt="Chat Flow" width="360" height="720"/> | <img src="screenshots/matching_flow.png" alt="Job Matching Flow" width="360" height="720"/> | <img src="screenshots/onboading_flow.png" alt="Onboarding Flow" width="360" height="720"/> |
+
 
 ## Technology Stack
 
