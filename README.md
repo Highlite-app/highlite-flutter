@@ -58,7 +58,7 @@ Here are some screenshots that showcase the app’s user interface and features:
 
 | Home Feed                           | Candidate Profile                    | Company Job Post                     |
 |-------------------------------------|--------------------------------------|--------------------------------------|
-| ![Home Feed](screenshots/home_feed.png) | ![Candidate Profile](screenshots/candidate_profile.png) | ![Company Job Post](screenshots/company_job_post.png) |
+| ![Home Feed](screenshots/home_feed.png) | ![Candidate Profile](screenshots/candidate_profile.png) | ![Company Job Post](screenshots/company_job_post.png) | 
 
 ## Technology Stack
 
