@@ -48,7 +48,7 @@ To run the app locally, follow these steps:
 
 Check out a demo of the Highlite app in action:
 
-[![Highlite Demo Video](https://www.youtube.com/shorts/Pzp0we6RIUU)
+[Highlite Demo Video](https://www.youtube.com/shorts/Pzp0we6RIUU)
 
 Click on the image above or [here](https://www.youtube.com/watch?v=YOUR_VIDEO_ID) to watch the demo video.
 
