@@ -48,9 +48,9 @@ To run the app locally, follow these steps:
 
 Check out a demo of the Highlite app in action:
 
-[Highlite Demo Video](https://www.youtube.com/shorts/Pzp0we6RIUU)
+[![Highlite Demo Video](screenshots/playstore_appstore_screenshot.jpeg)](https://www.youtube.com/shorts/Pzp0we6RIUU)
 
-Click on the image above or [here](https://www.youtube.com/watch?v=YOUR_VIDEO_ID) to watch the demo video.
+Click on the image above or [here](https://www.youtube.com/shorts/Pzp0we6RIUU) to watch the demo video.
 
 ## Screenshots
 
@@ -59,6 +59,10 @@ Here are some screenshots that showcase the app’s user interface and features:
 | Home Feed                           | Candidate Profile                    | Company Job Post                     |
 |-------------------------------------|--------------------------------------|--------------------------------------|
 | ![Home Feed](screenshots/home_feed.png) | ![Candidate Profile](screenshots/candidate_profile.png) | ![Company Job Post](screenshots/company_job_post.png) | 
+
+| Chat Flow                           | Job Matching Flow                    | Onboarding Flow                      |
+|-------------------------------------|--------------------------------------|--------------------------------------|
+| ![Chat Flow](screenshots/chat_flow.png) | ![Job Matching Flow](screenshots/matching_flow.png) | ![Onboarding Flow](screenshots/onboading_flow.png) |
 
 ## Technology Stack
 
