@@ -58,11 +58,11 @@ Here are some screenshots that showcase the app’s user interface and features:
 
 | Home Feed                           | Candidate Profile                    | Company Job Post                     |
 |-------------------------------------|--------------------------------------|--------------------------------------|
-| <img src="screenshots/home_feed.png" alt="Home Feed" width="360" height="720"/> | <img src="screenshots/candidate_profile.png" alt="Candidate Profile" width="360" height="720"/> | <img src="screenshots/company_job_post.png" alt="Company Job Post" width="360" height="720"/> |
+| <img src="screenshots/home_feed.png" alt="Home Feed" width="360" height="650"/> | <img src="screenshots/candidate_profile.png" alt="Candidate Profile" width="360" height="650"/> | <img src="screenshots/company_job_post.png" alt="Company Job Post" width="360" height="650"/> |
 
 | Chat Flow                           | Job Matching Flow                    | Onboarding Flow                      |
 |-------------------------------------|--------------------------------------|--------------------------------------|
-| <img src="screenshots/chat_flow.png" alt="Chat Flow" width="360" height="720"/> | <img src="screenshots/matching_flow.png" alt="Job Matching Flow" width="360" height="720"/> | <img src="screenshots/onboading_flow.png" alt="Onboarding Flow" width="360" height="720"/> |
+| <img src="screenshots/chat_flow.png" alt="Chat Flow" width="360" height="650"/> | <img src="screenshots/matching_flow.png" alt="Job Matching Flow" width="360" height="650"/> | <img src="screenshots/onboading_flow.png" alt="Onboarding Flow" width="360" height="650"/> |
 
 
 ## Technology Stack
