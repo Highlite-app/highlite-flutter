@@ -69,7 +69,9 @@ Here are some screenshots that showcase the app’s user interface and features:
 
 Highlite leverages the following technologies:
 
-- **Flutter** - UI framework for mobile applications.
+- **Flutter** - UI framework for mobile applications .
+- **State Management** - BLOC , PROVIDER
+- **Architecture** - CLEAN ARCHITECTURE -(Data , Domain & Representation)
 - **Firebase** - Backend services including Firestore, Authentication, and Cloud Storage.
 - **Dart** - Programming language for Flutter.
 - **REST API** - Communication between backend and frontend.
